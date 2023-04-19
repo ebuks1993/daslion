@@ -1,0 +1,104 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table3.css' %}">
+
+    <title>Document</title>
+</head>
+<body>
+
+        <!-- menu -->
+        <nav>
+            <br>
+            <p>from {{lqgap}} -to- {{qgap}}</p>
+            <br>
+            <h1><a href="{% url 'team' %}">LION TEAM</a></h1>
+            <br>
+
+            <h2><a href="{% url 'distributors' dist='DISTRIBUTORS' %}">DISTRIBUTORS</a></h2>
+            <h2><a href="{% url 'marketing'  %}">MARKETING AREA</a></h2>
+
+            {% regroup red4 by REGION as region_list %}
+
+            <ul>
+                {% for REGION in region_list  %}
+
+                    <li><h3><a href="{% url 'region' REGION.grouper %}">
+                        {{REGION.grouper}}
+                    </a></h3></li>
+
+                    {% regroup REGION.list by ASM as asm_list %}
+
+                    <ul>
+                        {% for ASM in asm_list  %}
+                             <li><h4><a href="{% url 'area' ASM.grouper REGION.grouper %}"> {{ASM.grouper}}
+
+                             </a></h4></li>
+
+                             {% regroup ASM.list by REP as rep_list %}
+
+                             <ul>
+                                {% for REP in rep_list  %}
+                                <li><a href="{% url 'rep' REP.grouper ASM.grouper %}">{{REP.grouper}}</a></li>
+                                
+                                {% endfor %}
+                             </ul>
+
+                               
+                            
+                        {% endfor %}
+                    </ul>
+                    
+                {% endfor %}
+            </ul>
+
+            
+  
+
+    
+        </nav>
+     
+        <!-- main article -->
+        <article>
+     
+            <!-- <h1>Shopping Menu</h1>
+          <picture>
+            <source media="(min-width: 40em)" srcset="http://placehold.it/720x405 1x, http://placehold.it/1440x810 2x"/>
+            <source srcset="http://placehold.it/405x228 1x, http://placehold.it/810x456 2x"/>
+            <img src="http://placehold.it/705x405" alt=""/>
+          </picture>
+            <p class="lead">Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+            <p>Maecenas faucibus mollis interdum. Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.Cras justo odio, dapibus ac facilisis in, egestas eget quam. Etiam porta sem malesuada magna mollis euismod. Curabitur blandit tempus porttitor. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            
+      -->
+
+            {% block content %}
+        
+            {% endblock content %}
+      
+        </article>
+
+    
+
+ 
+
+
+
+
+
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+
+</html>

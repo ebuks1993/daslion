@@ -1,0 +1,330 @@
+{% extends 'head/sidebar.html' %}
+{% load static %}
+{% load humanize %}
+
+
+
+
+
+{% block content %}
+
+<h2 id="still">Marketing area</h2>
+
+<div class="flow">
+
+  <div class="card">
+    <div class="title">
+
+        <p class="title-text">
+            YTD Sales
+        </p>
+        {% if finta.colgrowth < 0 %}
+        <p class="percent1">
+          &#9660 {{finta.colgrowth|floatformat:"2"|intcomma}}%
+        </p>
+        {% else %}
+        <p class="percent">
+          &#9650 {{finta.colgrowth|floatformat:"2"|intcomma}}%
+        </p>
+          
+        {% endif %}
+  
+  
+        
+    </div>
+    <div class="data">
+        <p>
+            &#8358 {{finta.cursales|floatformat:"2"|intcomma}}
+        </p>
+        
+        <div class="range">
+            <p id="lover">Budget <span id="bala">&#8358 {{finta.ytdbudget|floatformat:"2"|intcomma}}</span></p>
+            <p id="lover">achived  <span id="bala">{{finta.sba|floatformat:"2"|intcomma}}%</span></p>
+        </div>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <div class="title">
+
+        <p class="title-text">
+            MTD Sales
+        </p>
+        <p class="percent">
+        
+        </p>
+    </div>
+    <div class="data">
+        <p>
+            &#8358 {{finta.msal|floatformat:"2"|intcomma}}
+        </p>
+        <div class="range">
+            <p id="lover">Budget <span id="bala">&#8358 {{finta.mtdbudget|floatformat:"2"|intcomma}}</span></p>
+            <p id="lover">achived  <span id="bala">{{finta.msa|floatformat:"2"|intcomma}}%</span></p>
+        </div>
+    </div>
+
+</div> 
+
+<div class="card">
+  <div class="title">
+
+      <p class="title-text">
+          YTD Collection
+      </p>
+      {% if finta.colgrowth < 0 %}
+      <p class="percent1">
+        &#9660 {{finta.colgrowth|floatformat:"2"|intcomma}}%
+      </p>
+      {% else %}
+      <p class="percent">
+        &#9650 {{finta.colgrowth|floatformat:"2"|intcomma}}%
+      </p>
+        
+      {% endif %}
+
+
+      
+  </div>
+  <div class="data">
+      <p>
+        &#8358 {{finta.curcol|floatformat:"2"|intcomma}} 
+      </p>
+      
+      <div class="range">
+        <p id="lover">Budget <span id="bala">&#8358 {{finta.ytdbudget|floatformat:"2"|intcomma}}</span></p>
+        <p id="lover">achived  <span id="bala">{{finta.sca|floatformat:"2"|intcomma}}%</span></p>
+    </div>
+  </div>
+
+</div> 
+
+<div class="card">
+  <div class="title">
+
+      <p class="title-text">
+          MTD collection
+      </p>
+      <p class="percent">
+     
+      </p>
+  </div>
+  <div class="data">
+      <p>
+        &#8358 {{finta.mcol|floatformat:"2"|intcomma}} 
+      </p>
+      <div class="range">
+        <p id="lover">Budget <span id="bala">&#8358 {{finta.mtdbudget|floatformat:"2"|intcomma}}</span></p>
+        <p id="lover">achived  <span id="bala">{{finta.mcba|floatformat:"2"|intcomma}}%</span></p>
+    </div>
+  </div>
+
+</div> 
+
+<!-- <div class="card">
+  <div class="title">
+
+      <p class="title-text">
+          focus products
+      </p>
+      <p class="percent">
+      </p>
+  </div>
+  <div class="data">
+      <p>
+          39,500 
+      </p>
+      
+      <div class="range">
+        <p id="lover">Budget <span id="bala">3000</span></p>
+        <p id="lover">achived  <span id="bala">100%</span></p>
+    </div>
+  </div>
+
+</div>  -->
+
+
+<!-- final div -->
+</div> 
+
+
+<!-- ___________## pie chart and table______________________________________________________________________________________ -->
+
+<div id="lamba">
+    <div id="good1">
+        <h3 >Area Contrib</h3>
+        <canvas id="myChart1"></canvas>
+    </div>
+    <div id="samklef">
+        <h3 id ='zito'>Product Performance</h3>
+            
+        <table class="styled-table" >
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>S-YTD</th>
+                    <th>B-YTD</th>
+                    <th>YTD %</th>
+                    <th>S-MTD</th>
+                    <th>B-MTD</th>
+                    <th>MTD %</th>
+                    <th>S-LY</th>
+                    <th>GWT-%</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                    {% for items in rcfab  %}
+
+                    <tr>
+                        <td>{{items.product_x}}</td>
+                        <td>{{items.ctns_x|floatformat:"2"|intcomma}}</td>
+                        <td>{{items.tgt|floatformat:"2"|intcomma}}</td>
+                        <td>{{items.ytdA|floatformat:"0"|intcomma}}%</td>
+                        <td>{{items.ctns|floatformat:"2"|intcomma}}</td>
+                        <td>{{items.value|floatformat:"2"|intcomma}}</td>
+                        <td>{{items.mtdA|floatformat:"0"|intcomma}}%</td>
+                        <td>{{items.ctns_y|floatformat:"2"|intcomma}}</td>
+                        <td>{{items.gwt|floatformat:"0"|intcomma}}%</td>
+                    </tr>
+                       
+                    {% endfor %}
+           
+            </tbody>
+        </table>
+        </div>
+</div>
+
+
+<!-- ____________________piechart javascript______________________________________________ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+
+ 
+<script>
+    const ctx1 = document.getElementById('myChart1');
+    new Chart(ctx1, {
+                   type: 'pie',
+                   data: {
+                       datasets: [{
+                           label: 'BCurrent',
+                           data:[20,25],
+                           backgroundColor: ['rgb(38, 134, 218)','rgb(0,0,0)'],
+                           // this dataset is drawn below
+                        //    order: 3
+                       }, 
+                      ],
+
+                       labels: ['apple','banana'],
+                       hoverOffset: 4
+                //    options: {
+                //                scales: {
+                //                y: {
+                //                    beginAtZero: true
+                //                }
+                //                }
+                //            }
+
+                   }});
+
+</script>
+
+<!-- ________### bar chart_____________________________________________________________________________________ -->
+
+
+<div id="lamba">
+    <div id="good">
+        <h3 id ='zito3'>Collection Trend</h3>   
+        <canvas id="myChart"></canvas>
+    </div>
+    
+    <div id="samklef2">
+        <h3 id ='zito2'>Last 5 working days collection</h3>
+            
+        <table class="styled-table3" >
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Day</th>
+                    <th>Amount</th>
+                   
+                    
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for items in qrcfab  %}
+
+                <tr>
+                    <td>{{items.dated|safe}}</td>
+                    <td>{{items.day}}</td>
+                    <td>&#8358 {{items.Amount|intcomma}}</td>
+     
+                </tr>
+                    
+                {% endfor %}
+             
+           
+            </tbody>
+        </table>
+        </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+ 
+<script>
+    const ctx = document.getElementById('myChart');
+    new Chart(ctx, {
+                   type: 'bar',
+                   data: {
+                       datasets: [{
+                           label: 'Collection',
+                           data:[{% for items in trcfab %} "{{items.Amount_x1|safe}}",{% endfor %}],
+                           backgroundColor: 'rgb(38, 134, 218)',
+                           // this dataset is drawn below
+                           order: 3
+                       }, 
+                       {
+                           label: 'Budget',
+                           data: [{% for items in trcfab %} "{{items.budget|safe}}",{% endfor %}],
+                           type: 'line',
+                           borderColor: 'rgb(0, 0, 0)',
+                           // this dataset is drawn on top
+                           order: 1
+                       },
+                       {
+                           label: 'Last year',
+                           data: [{% for items in trcfab %} "{{items.Amount_y1|safe}}",{% endfor %}],
+                           type: 'line',
+                           borderColor: 'rgb(212, 76, 66)',
+                           // this dataset is drawn on top
+                           order: 2
+                       }],
+                       labels: [{% for items in trcfab %} "{{items.Month|safe}}",{% endfor %}],
+                   options: {
+                               scales: {
+                               y: {
+                                   beginAtZero: true
+                               }
+                               }
+                           }
+
+                   }});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}  
