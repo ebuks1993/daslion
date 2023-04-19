@@ -5,7 +5,7 @@ import json
 
 
 ## Api base 
-api='http://127.0.0.1:8500'
+api='http://salesb12-production.up.railway.app'
 
 
 def side(request):
